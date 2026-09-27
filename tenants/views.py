@@ -5,7 +5,7 @@ from .models import Tenant, TenantUser
 from .permissions import HasTenant
 from .serializers import TenantCreateResponseSerializer, TenantSerializer, TenantUserSerializer
 
-class TenantCreateView(generics.CreateAPIView):
+class TenantListCreateView(generics.ListCreateAPIView):
     queryset = Tenant.objects.all()
     serializer_class = TenantSerializer
     permission_classes = []

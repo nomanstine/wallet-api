@@ -2,10 +2,15 @@ from django.db import models
 import uuid
 import secrets
 
+
+def generate_api_key():
+    return secrets.token_hex(16)
+
+
 class Tenant(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=255)
-    api_key = models.CharField(max_length=32, unique=True, default=lambda: secrets.token_hex(16))
+    name = models.CharField(max_length=255, unique=True)
+    api_key = models.CharField(max_length=32, unique=True, default=generate_api_key)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
