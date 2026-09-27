@@ -11,11 +11,12 @@ class Wallet(models.Model):
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='wallets')
     user = models.ForeignKey(TenantUser, on_delete=models.CASCADE, related_name='wallets')
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'), validators=[MinValueValidator(Decimal('0.00'))])
+    currency = models.CharField(max_length=5, default='USD')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Wallet({self.id}) tenant={self.tenant_id} balance={self.balance} bdt"
+        return f"Wallet({self.id}) tenant={self.tenant_id} balance={self.balance} {self.currency}"
 
 class Transfer(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -57,7 +58,7 @@ class Transaction(models.Model):
 class IdempotencyKey(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='idempotency_keys')
-    key = models.CharField(max_length=255, unique=True)
+    key = models.CharField(max_length=255)
     action = models.CharField(max_length=20)
     request_fingerprint = models.CharField(max_length=64)
     response_status = models.PositiveSmallIntegerField(null=True, blank=True)
