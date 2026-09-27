@@ -9,6 +9,7 @@ others.
 
 ```bash
 git clone https://github.com/nomanstine/wallet-api
+cd wallet-api
 cp .env.example .env
 docker compose up --build -d
 ```
