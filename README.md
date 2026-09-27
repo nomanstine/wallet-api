@@ -7,8 +7,8 @@ others.
 
 ## Setup
 
-### Option A — Docker (Postgresql),
 ```bash
+git clone https://github.com/nomanstine/wallet-api
 cp .env.example .env
 docker compose up --build -d
 ```
@@ -20,17 +20,6 @@ Running the tests
 docker compose exec web python manage.py test
 ```
 
-### Option B — Local, without Docker (sqlite)
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-python manage.py migrate
-python manage.py runserver
-```
-This uses a local `db.sqlite3` by default.
 
 ## Design overview
 
